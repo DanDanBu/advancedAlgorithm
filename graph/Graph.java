@@ -5,6 +5,11 @@
  */
 package graph;
 
+import static graph.Graph.createG;
+import static graph.Graph.insertNode;
+import static graph.Graph.removeEdge;
+import static graph.Graph.removeNode;
+import static graph.Graph.setEdge;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -35,10 +40,18 @@ public class Graph {
         return resetV;
     }
     
-    public static int removeNode(int numV, int V){
+    public static int removeNode(int numV, int V, List keySet){
         int resetV = numV;
         List<Integer> v = adjList.get(V);
         if(v != null){
+            for(int i=1; i<=keySet.size(); i++){
+                List<Integer> vtemp = adjList.get(i);
+                for(int j=1; j<=vtemp.size(); j++){
+                    if(vtemp.contains(V) == true)
+                        //System.out.println(vtemp);
+                        removeEdge(i, V);
+                }
+            }
             adjList.remove(V);
             resetV = numV - 1;
         }else{
@@ -65,8 +78,8 @@ public class Graph {
  
         List<Integer> sls = adjList.get(to);
         List<Integer> dls = adjList.get(from);
-        System.out.println(sls);
-        System.out.println(dls);
+        //System.out.println(sls);
+        //System.out.println(dls);
         for(int i=0; i<sls.size(); i++){
             if(sls.get(i) == from){
                 sls.remove(i);
@@ -180,8 +193,9 @@ public class Graph {
                 case 2:
                     System.out.println("Please enter the vertex you want to remove:");
                     int delNode = input2.nextInt();
-                    v = removeNode(v, delNode);
                     List key2 = new ArrayList(adjList.keySet());
+                    v = removeNode(v, delNode, key2);
+                    key2 = new ArrayList(adjList.keySet());
                     System.out.println(key2);
                     for(int i=0; i<key2.size(); i++){
                         System.out.print(key2.get(i) + " -> ");
@@ -262,8 +276,7 @@ public class Graph {
         
     }
     
-   
-    
+
     public static void main(String[] args) {
         System.out.print("The number of vertex : ");
         Scanner input = new Scanner(System.in);
@@ -276,7 +289,5 @@ public class Graph {
         
         
     }
-    
-    
-    
+
 }
