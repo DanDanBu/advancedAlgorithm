@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package textfilecompare;
 
 import static java.lang.Integer.max;
 import java.util.ArrayList;
 
-/**
- *
- * @author James
- */
+
 public class LCS {
     String[] t1;
     String[] t2;
@@ -19,6 +12,8 @@ public class LCS {
     int[][] array;
     int[][] prev;
     int countTime =0;
+    
+    //define LCS current array and previous array size.
     void LCS(int t1Size, int t2Size){
         t1 = new String[t1Size+1];
         t2 = new String[t2Size+1];
@@ -37,6 +32,7 @@ public class LCS {
             }
         }
         //upper left = 1, left = 2, up = 3
+        //with these numbers, we can define the status of each step.
         for(int i = 0; i < file1.size(); i++){
             fileLine1 = file1.get(i);
             t1[i] = fileLine1;
@@ -66,6 +62,7 @@ public class LCS {
         //System.out.println(countTime);
     }
 
+    //printout LCS function
     public void print_LCS(int i, int j){
         countTime ++;
         if(i == 0 || j == 0)
